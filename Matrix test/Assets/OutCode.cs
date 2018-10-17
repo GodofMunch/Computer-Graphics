@@ -6,7 +6,7 @@ public class OutCode {
 
 
     Vector2[] screenBounds = { new Vector2(1f, 1f), new Vector2(1f, -1f), new Vector2(-1f, -1f), new Vector2(-1f, 1f) };
-    bool[] udlr = new bool[4];
+    public bool[] udlr = new bool[4];
     private object p1;
     private object p2;
     private object p3;
@@ -54,22 +54,12 @@ public class OutCode {
 
     }
 
-    //to go in matrices script
-
-    /*void line_clip(Vector2 v1, Vector2 v2)
-
+    public static OutCode operator +(OutCode a, OutCode b)
     {
-        OutCode o1 = new OutCode(v1);
-        OutCode o2 = new OutCode(v2);
+        return new OutCode(a.udlr[0] || b.udlr[0], a.udlr[1] || b.udlr[1], a.udlr[2] || b.udlr[2], a.udlr[3] || b.udlr[3]);
+    }
 
-        if ((o1 == new OutCode()) && (o2 == new OutCode()))
-        {// trivially Accept}
-        }
-
-        if ((o1 & o2) != new OutCode())
-        {//trivially reject     }
-        }
-    }*/
+   
 
 }
 	
