@@ -7,17 +7,13 @@ public class OutCode {
 
     Vector2[] screenBounds = { new Vector2(1f, 1f), new Vector2(1f, -1f), new Vector2(-1f, -1f), new Vector2(-1f, 1f) };
     public bool[] udlr = new bool[4];
-    private object p1;
-    private object p2;
-    private object p3;
-    private object p4;
 
     public OutCode(Vector2 v1)
     {
-        udlr[0] = v1.y > screenBounds[0].y;
-        udlr[1] = v1.y < screenBounds[1].y;
-        udlr[2] = v1.x < screenBounds[2].x;
-        udlr[3] = v1.x > screenBounds[3].x;
+        udlr[0] = v1.y > 1;
+        udlr[1] = v1.y < -1;
+        udlr[2] = v1.x < -1;
+        udlr[3] = v1.x > 1;
     }
 
     public OutCode()
@@ -30,10 +26,10 @@ public class OutCode {
 
     public OutCode(bool up, bool down, bool left, bool right)
     {
-        this.p1 = up;
-        this.p2 = down;
-        this.p3 = left;
-        this.p4 = right;
+        udlr[0] = up;
+        udlr[1] = down;
+        udlr[2] = left;
+        udlr[3] = right;
     }
 
     public static bool operator == (OutCode a, OutCode b)
@@ -58,9 +54,6 @@ public class OutCode {
     {
         return new OutCode(a.udlr[0] || b.udlr[0], a.udlr[1] || b.udlr[1], a.udlr[2] || b.udlr[2], a.udlr[3] || b.udlr[3]);
     }
-
-   
-
 }
 	
 
