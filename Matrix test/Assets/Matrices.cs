@@ -14,7 +14,7 @@ public class Matrices : MonoBehaviour {
         Vector2 end = new Vector2(-0.7f, -0.8f);
         if (line_clip(ref start, ref end))
         {
-            print("The point " + start.ToString() + "," + end.ToString() + " was " + "Accepted");
+            print("The point " + start.ToString() + "," + end.ToString() + " was Accepted");
         }
 
         start = new Vector2(-2f, 1.5f);
@@ -22,7 +22,7 @@ public class Matrices : MonoBehaviour {
 
         if (!line_clip(ref start, ref end))
         {
-            print("The point " + start.ToString() + "," + end.ToString() + " was " + "rejected");
+            print("The point " + start.ToString() + "," + end.ToString() + " was rejected");
         }
 
         start = new Vector2(0f, 1.5f);
@@ -30,16 +30,8 @@ public class Matrices : MonoBehaviour {
 
         if (line_clip(ref start, ref end))
         {
-            print("The point " + start.ToString() + "," + end.ToString() + " was " + "accepted");
+            print("The point " + start.ToString() + "," + end.ToString() + " was accepted");
         }
-
-        /*start = new Vector2(-2f, 1.5f);
-        end = new Vector2(.8f, 1.5f);
-
-        if (!line_clip(ref start, ref end))
-        {
-            print("The point " + start.ToString() + "," + end.ToString() + " was " + "rejected");
-        }*/
     }
 
     public static void matricesTransformations()
@@ -207,13 +199,10 @@ public class Matrices : MonoBehaviour {
         }
     }
 
-
-
     private float getSlope(Vector2 v1, Vector2 v2)
     {
         return (v2.y - v1.y) / (v2.x - v1.x);
     }
-
 
     public static void printVector3Array(Vector3[] arrayToBePrinted)
     {
@@ -224,8 +213,7 @@ public class Matrices : MonoBehaviour {
         }
         print(array);
     }
-
-   
+  
     public static Vector3[] transformVertices(Vector3[] vertices, Matrix4x4 tranformMatrix)
     {
         Vector3[] imageAfterTransformation = new Vector3[8];
