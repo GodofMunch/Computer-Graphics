@@ -6,7 +6,7 @@ public class OutCode : MonoBehaviour{
 
     void Start()
     {
-        Vector2 start = new Vector2(0.7f, 0.8f);
+        /*Vector2 start = new Vector2(0.7f, 0.8f);
         Vector2 end = new Vector2(-0.7f, -0.8f);
         if (line_clip(ref start, ref end))
         {
@@ -28,7 +28,7 @@ public class OutCode : MonoBehaviour{
         {
             print("The point " + start.ToString() + "," + end.ToString() + " was accepted");
         }
-
+        */
     }
     Vector2[] screenBounds = { new Vector2(1f, 1f), new Vector2(1f, -1f), new Vector2(-1f, -1f), new Vector2(-1f, 1f) };
     public bool[] udlr = new bool[4];

@@ -110,6 +110,8 @@ public class Matrices : MonoBehaviour {
         print("FINAL IMAGE");
         printVector3Array(finalImage);
 
+        
+
         Vector3[] originalVerticesByMatrixForEverything = transformVertices(vertices, singleMatrixForEverything);
 
         print("ORIGINAL VERTS BY MATRIX FOR EVERYTHING");

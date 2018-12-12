@@ -4,11 +4,23 @@ using UnityEngine;
 
 public class Rasterize : MonoBehaviour
 {
+    int height = Screen.height;
+    int width = Screen.width;
 
     // Use this for initialization
     void Start()
     {
 
+        //For testing purposes
+        Vector2 start = new Vector2(234, 502);
+        Vector2 end = new Vector2(241, 506);
+
+        IntegerVector2 startPoint = new IntegerVector2(start, height, width);
+        IntegerVector2 endPoint = new IntegerVector2(end, height, width);
+
+        List<IntegerVector2> toBeDrawn = rasterize(startPoint, endPoint);
+
+        print(toBeDrawn);
     }
 
     // Update is called once per frame
@@ -17,23 +29,20 @@ public class Rasterize : MonoBehaviour
 
     }
 
-    public IntegerVector2 convertVector2ToResolution(Vector2 point, int width, int height)
-    {
+   
 
-        int x = (int)((point.x + 1) / 2 * (width - 1));
-        int y = (int)((1 - point.y) / 2 * (height - 1));
-
-        return new IntegerVector2(x, y);
-    }
-
-    public List<IntegerVector2> rasterize(Vector2 start, Vector2 end)
+    public List<IntegerVector2> rasterize(IntegerVector2 start, IntegerVector2 end)
     {
         List<IntegerVector2> toBeDrawn = new List<IntegerVector2>();
 
-        int dx = end.x - start.x;
-        int dy = end.y - start.y;
+        int dx = end.getX() - start.getX();
+        int dy = end.getY() - end.getY();
         int TwoDy = 2 * dy;
-        int TwoDyMinusDx = TwoDy - dx;
+        int TwoDYminusDX = TwoDy - dx;
+        int p = TwoDYminusDX;
+        int y = 0;
+
+        bool XandYSwapped = false;
 
         if (dx < 0)
         {
@@ -43,23 +52,76 @@ public class Rasterize : MonoBehaviour
         if (dy < 0)
         {
             toBeDrawn = rasterize(negateY(start), negateY(end));
-            negateYList(toBeDrawn);
+            
+            toBeDrawn = NegateYList(toBeDrawn);
+        }
+
+        if(dy > dx)
+        {
+            swapXandY(start);
+            swapXandY(end);
+            XandYSwapped = true;
+        }
+
+        y = start.getY();
+        for(int i = start.getX(); i < end.getX(); i ++)
+        {
+            
+            if(p > 0)
+            {
+                y++;
+                p = p - TwoDYminusDX;
+            }
+
+            else
+            {
+                p = p + TwoDy;
+            }
+
+            toBeDrawn.Add(new IntegerVector2(i, y));
         }
 
 
 
+        if (XandYSwapped)
+        {
+            toBeDrawn = swapXandY(toBeDrawn);
+        }
+
+        return toBeDrawn;
+
     }
 
-    public IntegerVector2 negateY(Vector2 point)
+    public void swapXandY(IntegerVector2 point)
     {
-        return new IntegerVector2(point.x, -point.y);
+        int holder = point.getX();
+        point.setX(point.getY());
+        point.setY(holder);
+    }
+
+    public List<IntegerVector2> swapXandY(List<IntegerVector2> myList)
+    {
+        List<IntegerVector2> swapped = new List<IntegerVector2>();
+
+        foreach (IntegerVector2 point in myList)
+            swapped.Add(new IntegerVector2(point.getY(), point.getX()));
+        return swapped;
+  
+    }
+
+    public IntegerVector2 negateY(IntegerVector2 point)
+    {
+        return new IntegerVector2(point.getX(), -point.getY());
     }
 
     public List<IntegerVector2> NegateYList(List<IntegerVector2> myList)
     {
-        for (int i = 0; i < myList.Count; i++)
-        {
-            myList.IndexOf(i) = new IntegerVector2(myList.IndexOf(i).x, -(myList.IndexOf(i).y));
-        }
+        List<IntegerVector2> negated = new List<IntegerVector2>();
+
+        foreach (IntegerVector2 v in myList) {
+            negated.Add(negateY(v));
+                }
+
+        return negated;
     }
 }
