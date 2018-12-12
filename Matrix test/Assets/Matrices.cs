@@ -10,28 +10,7 @@ public class Matrices : MonoBehaviour {
 
         //matricesTransformations();
 
-        Vector2 start = new Vector2(0.7f, 0.8f);
-        Vector2 end = new Vector2(-0.7f, -0.8f);
-        if (line_clip(ref start, ref end))
-        {
-            print("The point " + start.ToString() + "," + end.ToString() + " was Accepted");
-        }
-
-        start = new Vector2(-2f, 1.5f);
-        end = new Vector2(.8f, 1.5f);
-
-        if (!line_clip(ref start, ref end))
-        {
-            print("The point " + start.ToString() + "," + end.ToString() + " was rejected");
-        }
-
-        start = new Vector2(0f, 1.5f);
-        end = new Vector2(1.5f, 0f);
-
-        if (line_clip(ref start, ref end))
-        {
-            print("The point " + start.ToString() + "," + end.ToString() + " was accepted");
-        }
+       
     }
 
     public static void matricesTransformations()
@@ -135,73 +114,6 @@ public class Matrices : MonoBehaviour {
 
         print("ORIGINAL VERTS BY MATRIX FOR EVERYTHING");
         printVector3Array(originalVerticesByMatrixForEverything);
-    }
-   
-    private bool line_clip(ref Vector2 startPoint, ref Vector2 endPoint)
-        { 
-        OutCode startOutcode = new OutCode(startPoint);
-        OutCode endOutcode = new OutCode(endPoint);
- 
-
-        if ((startOutcode == new OutCode()) && (endOutcode == new OutCode())) //Trivial Acceptance
-        {
-            return true;
-        }
-
-        if ((startOutcode & endOutcode) != new OutCode())  // Trivial Rejection
-        {
-            return false;
-        }
-
-     
-        for (int udlr = 0;udlr<4;udlr++)
-            {
-                if (startOutcode.udlr[udlr])
-                {
-                    startPoint = lineIntercept(startPoint, endPoint, udlr);
-                    if (new OutCode(startPoint) == new OutCode())// new point in viewport
-                    {
-                        return line_clip(ref endPoint, ref startPoint);
-                    }
-                }
-            }
-
-        return false;
-
-     
-    }
-
-    private Vector2 lineIntercept(Vector2 startPoint, Vector2 endPoint, int udlr)
-    {
-        float m = getSlope(startPoint, endPoint);
-
-        switch (udlr)
-        {
-            case 0: // Top Edge  y = 1
-
-                return new Vector2(startPoint.x + (1/m) * (1 - startPoint.y), 1);
-
-            case 1: // Bottom Edge  y = -1
-
-                return new Vector2(startPoint.x + (1 / m) * (-1 - startPoint.y), -1);
-
-            case 2: // Left Edge x = -1
-
-                return new Vector2(-1, ( startPoint.y + (m * (-1 - startPoint.x))));
-
-            case 3: // Right Edge x = 1
-
-                return new Vector2(1, (startPoint.y + (m * (1 - startPoint.x))));
-
-            default :
-
-                return new Vector2();
-        }
-    }
-
-    private float getSlope(Vector2 v1, Vector2 v2)
-    {
-        return (v2.y - v1.y) / (v2.x - v1.x);
     }
 
     public static void printVector3Array(Vector3[] arrayToBePrinted)

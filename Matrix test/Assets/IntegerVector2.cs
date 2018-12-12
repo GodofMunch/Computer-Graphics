@@ -4,27 +4,18 @@ using UnityEngine;
 
 public class IntegerVector2 : MonoBehaviour {
 
-    private int x1;
-    private int x2;
-    private int y1;
-    private int y2;
-    private int dx;
-    private int dy;
-    private int TwoXDyMinusDx;
+    private int x;
+    private int y;
 
-    public IntegerVector2(Vector2 start, Vector2 end)
+    public IntegerVector2(Vector2 point)
     {
-        convertVector2ToInt(start);
-        convertVector2ToInt(end);
+        x = (int)point.x;
+        y = (int)point.y;
     }
 
-    public IntegerVector2()
+    public IntegerVector2(int x, int y)
     {
-
-    }
-    
-    public void convertVector2ToInt(Vector2 point)
-    {
-        
+        this.x = x;
+        this.y = y;
     }
 }
